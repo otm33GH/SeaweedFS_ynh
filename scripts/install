@@ -46,7 +46,7 @@ yunohost service add "$app-admin" --description="SeaweedFS Admin UI" --log="/var
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
-sleep 10
+
 ynh_systemctl --service="$app-master" --action="start"
 ynh_systemctl --service="$app-volume@$next_index" --action="start"
 ynh_systemctl --service="$app-filer" --action="start"
