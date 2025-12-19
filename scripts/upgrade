@@ -1,0 +1,99 @@
+#!/bin/bash
+
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
+source _common.sh
+source /usr/share/yunohost/helpers
+
+#=================================================
+# STOP SYSTEMD SERVICE
+#=================================================
+ynh_script_progression "Stopping $app's systemd service..."
+
+ynh_systemctl --service="$app-master" --action="stop" --log_path="systemd"
+ynh_systemctl --service="$app-filer" --action="stop" --log_path="systemd"
+ynh_systemctl --service="$app-admin" --action="stop" --log_path="systemd"
+ynh_systemctl --service="$app-s3" --action="stop" --log_path="systemd"
+for index_volume in "${volume_index[@]}"; do
+ynh_systemctl --service="$app-volume@$index_volume" --action="stop" --log_path="systemd"
+done
+for index_worker in "${worker_index[@]}"; do
+ynh_systemctl --service="$app-worker@$index_worker" --action="stop" --log_path="systemd"
+done
+
+#=================================================
+# DOWNLOAD, CHECK AND UNPACK SOURCE
+#=================================================
+ynh_script_progression "Upgrading source files..."
+
+ynh_setup_source --dest_dir="$install_dir" --full_replace=1
+chown -R "$app:www-data" "$install_dir"
+
+#=================================================
+# CONFIG FILES
+#=================================================
+ynh_script_progression "Retrieving $app's configuration..."
+
+upload_max_size=$(ynh_app_setting_get --app=$app --key=upload_max_size)
+
+#=================================================
+# REAPPLY SYSTEM CONFIGURATIONS
+#=================================================
+ynh_script_progression "Upgrading system configurations related to $app..."
+
+ynh_config_add_nginx
+
+ynh_config_add_logrotate
+
+touch /var/log/$app/$app-master.log
+touch /var/log/$app/$app-filer.log
+for index_volume in "${volume_index[@]}"; do
+touch /var/log/$app/$app-volume@$index_volume.log
+done
+for index_worker in "${worker_index[@]}"; do
+touch /var/log/$app/$app-volume@$index_worker.log
+done
+
+touch /var/log/$app/$app-admin.log
+
+chown -R $app:www-data /var/log/$app/
+
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression "Starting $app's systemd service..."
+
+yunohost service add "$app-master" --description="SeaweedFS Master" --log="/var/log/$app/$app-master.log"
+yunohost service add "$app-filer" --description="SeaweedFS Filer" --log="/var/log/$app/$app-filer.log"
+
+for index_volume in "${volume_index[@]}"; do
+yunohost service add "$app-volume@$index_volume" --description="SeaweedFS volume@$index_volume" --log="/var/log/$app/$app-volume@$index_volume.log"
+done
+for index_worker in "${worker_index[@]}"; do
+yunohost service add "$app-worker@$index_worker" --description="SeaweedFS worker@$index_volume" --log="/var/log/$app/$app-worker@$index_worker.log"
+done
+
+yunohost service add "$app-admin" --description="SeaweedFS Admin UI" --log="/var/log/$app/$app-admin.log"
+yunohost service add "$app-s3" --description="SeaweedFS S3 API" --log="/var/log/$app/$app-s3.log"
+
+ynh_systemctl --service="$app-master" --action="start"
+ynh_systemctl --service="$app-filer" --action="start"
+
+for index_volume in "${volume_index[@]}"; do
+ynh_systemctl --service="$app-volume@$index_volume" --action="start"
+done
+
+for index_worker in "${worker_index[@]}"; do
+ynh_systemctl --service="$app-worker@$index_worker" --action="start"
+done
+
+
+ynh_systemctl --service="$app-admin" --action="start"
+ynh_systemctl --service="$app-s3" --action="start"
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression "Upgrade of $app completed"

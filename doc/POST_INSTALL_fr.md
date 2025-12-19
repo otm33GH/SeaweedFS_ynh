@@ -1,0 +1,4 @@
+L'installation s'est bien déroulée.
+
+L'URL de l'interface admin est <https://__DOMAIN____PATH__/admin>. Seuls les utilisateurs du groupe __admins__ peuvent y accéder.  
+L'adresse de l'API est <https://__DOMAIN____PATH__>.  

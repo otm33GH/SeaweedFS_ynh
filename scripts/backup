@@ -1,0 +1,47 @@
+#!/bin/bash
+
+source ../settings/scripts/_common.sh
+source /usr/share/yunohost/helpers
+
+ynh_print_info "Declaring files to be backed up..."
+
+#=================================================
+# BACKUP THE APP MAIN DIR
+#=================================================
+
+ynh_backup "$install_dir"
+
+#=================================================
+# BACKUP THE DATA DIR
+#=================================================
+
+#ynh_backup "$data_dir"
+
+#=================================================
+# BACKUP SYSTEM CONFIGURATION
+#=================================================
+
+ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
+
+ynh_backup "/etc/systemd/system/$app-master.service"
+ynh_backup "/etc/systemd/system/$app-filer.service"
+
+for index_volume in "${volume_index[@]}"; do
+ynh_backup "/etc/systemd/system/$app-volume@$index_volume.service"
+done
+
+for index_worker in "${worker_index[@]}"; do
+ynh_backup "/etc/systemd/system/$app-worker@$index_worker.service"
+done
+
+ynh_backup "/etc/systemd/system/$app-admin.service"
+ynh_backup "/etc/systemd/system/$app-s3.service"
+
+ynh_backup "/etc/logrotate.d/$app"
+
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_print_info "Backup script completed for $app. (YunoHost will then actually copy those files to the archive)."

@@ -1,0 +1,108 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/main/schemas/manifest.v2.schema.json
+
+packaging_format = 2
+
+id = "seaweedfs"
+name = "SeaweedFS"
+description.en = "SeaweedFS is a versatile and efficient storage system"
+description.fr = "SeaweedFS is a versatile and efficient storage system"
+
+version = "1.0~ynh1"
+
+maintainers = [""]
+
+[upstream]
+# NB: Only the "license" key is mandatory. Remove entries for which there's no relevant data
+license = "Apache License 2.0" # you can see the available licenses identifiers list here: https://spdx.org/licenses/
+website = "https://seaweedfs.com/"
+#demo = "https://demo.example.com"
+#userdoc = "https://yunohost.org/apps"
+code = "https://github.com/seaweedfs/seaweedfs"
+# FIXME: optional but recommended if relevant, this is meant to contain the Common Platform Enumeration, which is
+# sort of a standard id for applications defined by the NIST. In particular, YunoHost may use this is in the future
+# to easily track CVE (=security reports) related to apps. The CPE may be obtained by searching here:
+# https://nvd.nist.gov/products/cpe/search.
+# For example, for Nextcloud, the CPE is 'cpe:2.3:a:nextcloud:nextcloud' (no need to include the version number)
+
+
+# FIXME: optional but recommended (or remove if irrelevant / not applicable).
+# This is meant to be an URL where people can financially support this app, especially when its development is based
+# on volunteers and/or financed by its community. YunoHost may later advertise it in the webadmin.
+
+
+[integration]
+yunohost = ">= 12.0.9"
+helpers_version = "2.1"
+# FIXME: can be replaced by a list of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386"]
+architectures = ['amd64']
+multi_instance = false
+
+ldap = false
+sso = false
+
+# FIXME: replace with an **estimate** minimum disk and RAM requirements. e.g. 20M, 400M, 1G...
+disk = "200M"
+ram.build = "200M"
+ram.runtime = "200M"
+
+[install]
+    [install.domain]
+    type = "domain"
+
+    [install.init_main_permission]
+    type = "group"
+    default = "visitors"
+
+  #  [install.admin]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+  #  type = "user"
+  #  [install.password]
+  #  help.en = "Use the help field to add an information for the admin about this question."
+  #  help.fr = "Utilisez le champ aide pour ajouter une information à l'intention de l'administrateur à propos de cette question."
+  #  type = "password"
+
+
+    
+[resources]
+    [resources.sources.main]
+    # This will pre-fetch the asset which can then be deployed during the install/upgrade scripts with :
+    #    ynh_setup_source --dest_dir="$install_dir"
+    # You can also define other assets than "main" and add --source_id="foobar" in the previous command
+   # url = "https://github.com/seaweedfs/seaweedfs/releases/download/4.03/linux_amd64.tar.gz"
+   # sha256 = "31e2f6a9ac6d61c08a2681dd2c2dcbdeecf6d6fc539b56a2e8f018b1309e5cc8"       
+   #url = "https://github.com/baserow/baserow/archive/refs/tags/2.0.1.tar.gz" 
+   #sha256 = "303f4e429f8885bbb91b96631441e3ce46d7841da290c8c2299248ccd394c14a"
+   #autoupdate.strategy = "latest_github_tag"
+   
+   url = "https://github.com/seaweedfs/seaweedfs/releases/download/4.03/linux_amd64_full.tar.gz"
+   sha256 = "e45c3beb2052a4a4322fa5fe47d9b1457f899767ffdff575ab0c68d2e472b386"
+   #format = "tar.gz"
+   #extract = true
+   autoupdate.strategy = "latest_github_tag"
+   in_subdir = false   
+   # autoupdate.strategy = "latest_github_tag"
+
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.data_dir]
+
+    [resources.permissions]
+    # This will configure SSOwat permission for $domain/$path/
+    # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
+    main.url = "/"
+    admin.url = "/admin"
+    admin.allowed = "admins"
+    admin.auth_header = false
+    
+    [resources.ports]
+    admin.default = 23646
+    master.default = 9333
+    filer.default = 8888
+    volume.default = 8080
+    api.default = 8333 # port pour s3
+    
+   
+   # [resources.database]
+

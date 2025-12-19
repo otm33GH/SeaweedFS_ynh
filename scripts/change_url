@@ -1,0 +1,69 @@
+#!/bin/bash
+
+## this script is only run if actual change to domain/path is detected, if you're here either $domain or $path changed
+## new location is available via $domain and $path (or $new_domain and $new_path variables if you want to be explicit)
+## old values are available via, you guessed it, $old_domain and $old_path
+
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
+source _common.sh
+source /usr/share/yunohost/helpers
+
+#=================================================
+# STOP SYSTEMD SERVICE
+#=================================================
+ynh_script_progression "Stopping $app's systemd service..."
+
+ynh_systemctl --service="$app-master" --action="stop" --log_path="systemd"
+ynh_systemctl --service="$app-filer" --action="stop" --log_path="systemd"
+ynh_systemctl --service="$app-admin" --action="stop" --log_path="systemd"
+ynh_systemctl --service="$app-s3" --action="stop" --log_path="systemd"
+for index_volume in "${volume_index[@]}"; do
+ynh_systemctl --service="$app-volume@$index_volume" --action="stop" --log_path="systemd"
+done
+for index_worker in "${worker_index[@]}"; do
+ynh_systemctl --service="$app-worker@$index_worker" --action="stop" --log_path="systemd"
+done
+
+#=================================================
+# MODIFY URL IN NGINX CONF
+#=================================================
+ynh_script_progression "Updating NGINX web server configuration..."
+# this will most likely adjust NGINX config correctly
+ynh_config_change_url_nginx
+#=================================================
+# SPECIFIC MODIFICATIONS
+#=================================================
+
+## do any changes to files that reference specific installation domain/path, i.e. regenerate configs etc
+
+#=================================================
+# RELOAD NGINX AND THE APP SERVICES
+#=================================================
+ynh_script_progression "Reloading $app's services and NGINX web server..."
+
+ynh_systemctl --service="$app-master" --action="start"
+ynh_systemctl --service="$app-filer" --action="start"
+
+for index_volume in "${volume_index[@]}"; do
+ynh_systemctl --service="$app-volume@$index_volume" --action="start"
+done
+
+for index_worker in "${worker_index[@]}"; do
+ynh_systemctl --service="$app-worker@$index_worker" --action="start"
+done
+
+ynh_systemctl --service="$app-admin" --action="start"
+ynh_systemctl --service="$app-s3" --action="start"
+
+ynh_systemctl --service=nginx --action=reload
+
+
+
+#=================================================
+# END OF SCRIPT
+#=================================================
+
+ynh_script_progression "Change of URL completed for $app"
