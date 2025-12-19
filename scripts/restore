@@ -44,29 +44,29 @@ ynh_script_progression "Restoring $app's services..."
   ynh_restore "/etc/systemd/system/$app-master.service"
   systemctl enable "$app-master.service" --quiet
 
-#### b. filer
-  ynh_restore "/etc/systemd/system/$app-filer.service"
-  systemctl enable "$app-filer.service" --quiet
-
-#### c. volumes
+#### b. volumes
 for index_volume in "${volume_index[@]}"; do
   ynh_restore "/etc/systemd/system/$app-volume@$index_volume.service"
   systemctl enable "$app-volume@$index_volume.service" --quiet
 done
 
-#### d. admin
-  ynh_restore "/etc/systemd/system/$app-admin.service"
-  systemctl enable "$app-admin.service" --quiet
+#### c. filer
+  ynh_restore "/etc/systemd/system/$app-filer.service"
+  systemctl enable "$app-filer.service" --quiet
 
-#### e. s3 API
+#### d. s3 API
   ynh_restore "/etc/systemd/system/$app-s3.service"
   systemctl enable "$app-s3.service" --quiet
 
-#### f. workers
+#### e. workers
 for index_worker in "${worker_index[@]}"; do
   ynh_restore "/etc/systemd/system/$app-worker@$index_worker.service"
   systemctl enable "$app-worker@$index_worker.service" --quiet
 done
+
+#### f. admin
+  ynh_restore "/etc/systemd/system/$app-admin.service"
+  systemctl enable "$app-admin.service" --quiet
 
 mkdir -p "/var/log/"$app""
 ynh_restore "/etc/logrotate.d/$app"
@@ -92,18 +92,19 @@ yunohost service add "$app-s3" --description="SeaweedFS S3 API" --log="/var/log/
 ynh_script_progression "Reloading $app's services and NGINX web server..."
 
 ynh_systemctl --service="$app-master" --action="start"
-ynh_systemctl --service="$app-filer" --action="start"
 
 for index_volume in "${volume_index[@]}"; do
 ynh_systemctl --service="$app-volume@$index_volume" --action="start"
 done
+
+ynh_systemctl --service="$app-filer" --action="start"
+ynh_systemctl --service="$app-s3" --action="start"
 
 for index_worker in "${worker_index[@]}"; do
 ynh_systemctl --service="$app-worker@$index_worker" --action="start"
 done
 
 ynh_systemctl --service="$app-admin" --action="start"
-ynh_systemctl --service="$app-s3" --action="start"
 
 ynh_systemctl --service=nginx --action=reload
 
