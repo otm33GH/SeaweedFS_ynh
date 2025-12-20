@@ -35,7 +35,7 @@ run__extra_volume_add() {
 ynh_print_info "Adding volume.."
 
 ## set port
-test -n "$extra_volume_port" || ynh_die "You must provide a port."
+extra_volume_port=8081
 while true; do
   if ss --numeric --listening --tcp --udp | awk '{print$5}' | grep --quiet --extended-regexp ":$extra_volume_port$"; then
     ynh_print_info "$extra_volume_port is already in use. Chosing another port..."
