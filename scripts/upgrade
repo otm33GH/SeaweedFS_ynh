@@ -21,6 +21,7 @@ ynh_systemctl --service="$app-volume@$index_volume" --action="stop" --log_path="
 done
 ynh_systemctl --service="$app-filer" --action="stop" --log_path="systemd"
 ynh_systemctl --service="$app-s3" --action="stop" --log_path="systemd"
+
 # Stop and remove workers
 for index_worker in "${worker_index[@]}"; do
 ynh_systemctl --service="$app-worker@$index_worker" --action="stop" --log_path="systemd"
