@@ -36,12 +36,11 @@ ynh_config_add_systemd --service="$app-admin" --template="admin.service"
 ynh_app_setting_set --app=$app --key=upload_max_size --value=$upload_max_size
 
 yunohost service add "$app-master" --description="SeaweedFS Master" --log="/var/log/$app/$app-master.log"
-yunohost service add "$app-volume@$next_index" --description="SeaweedFS Volume@$next_index" --log="/var/log/$app/$app-volume@${next_index}.log"
+yunohost service add "$app-volume@$next_index" --description="SeaweedFS volume@$next_index" --log="/var/log/$app/$app-volume@${next_index}.log"
 yunohost service add "$app-filer" --description="SeaweedFS Filer" --log="/var/log/$app/$app-filer.log"
 yunohost service add "$app-s3" --description="SeaweedFS S3 API" --log="/var/log/$app/$app-s3.log"
 yunohost service add "$app-worker@$next_index" --description="SeaweedFS worker@$next_index" --log="/var/log/$app/$app-worker@${next_index}.log"
 yunohost service add "$app-admin" --description="SeaweedFS Admin UI" --log="/var/log/$app/$app-admin.log"
-
 
 #=================================================
 # START SYSTEMD SERVICE
@@ -69,11 +68,10 @@ ynh_config_add_logrotate
 
 ynh_config_add_nginx
 ynh_systemctl --service=nginx --action=reload
-
-# inhibit worker.id to allow adding multiple workers ?
-#pushd "$install_dir"
-#mv worker.id worker.id.bak
-#popd
+sleep 5
+pushd "$install_dir"
+mv worker.id "worker@${next_index}.id"
+popd
 
 #=================================================
 # END OF SCRIPT
