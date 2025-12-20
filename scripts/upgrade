@@ -32,9 +32,7 @@ ynh_script_progression "Upgrading source files..."
 
 ynh_setup_source --dest_dir="$install_dir" --full_replace=1
 chown -R "$app:www-data" "$install_dir"
-pushd "$install_dir"
-mv worker.id worker.id.bak
-popd
+
 #=================================================
 # CONFIG FILES
 #=================================================
@@ -81,6 +79,10 @@ yunohost service add "$app-worker@$index_worker" --description="SeaweedFS worker
 done
 yunohost service add "$app-admin" --description="SeaweedFS Admin UI" --log="/var/log/$app/$app-admin.log"
 
+pushd "$install_dir"
+mv worker.id worker.id.bak
+popd
+
 ynh_systemctl --service="$app-master" --action="start"
 for index_volume in "${volume_index[@]}"; do
 ynh_systemctl --service="$app-volume@$index_volume" --action="start"
@@ -91,6 +93,8 @@ for index_worker in "${worker_index[@]}"; do
 ynh_systemctl --service="$app-worker@$index_worker" --action="start"
 done
 ynh_systemctl --service="$app-admin" --action="start"
+
+
 
 #=================================================
 # END OF SCRIPT
