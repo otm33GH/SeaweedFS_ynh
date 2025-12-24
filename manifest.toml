@@ -73,8 +73,8 @@ ram.runtime = "200M"
    autoupdate.strategy = "latest_github_tag"
    in_subdir = false
    
-   # url = "https://github.com/seaweedfs/seaweedfs/releases/download/4.03/linux_amd64_full.tar.gz"
-   # sha256 = "e45c3beb2052a4a4322fa5fe47d9b1457f899767ffdff575ab0c68d2e472b386"
+   # url = "https://github.com/seaweedfs/seaweedfs/releases/download/4.04/linux_amd64_full.tar.gz"
+   # sha256 = "128ca0aa439ce3385e73f3817fa29427cbf0910bf1dac63a4ae0022831d637e7"
    #format = "tar.gz"
    #extract = true
    # autoupdate.strategy = "latest_github_tag"
