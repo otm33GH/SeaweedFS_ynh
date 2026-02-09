@@ -34,10 +34,14 @@ ynh_script_progression "Restoring $app's services..."
   yunohost service add "$app-master" --description="SeaweedFS Master" --log="/var/log/$app/$app-master.log"
 
 #### b. volumes
-  for index_volume in "${volume_index[@]}"; do
-    ynh_restore "/etc/systemd/system/$app-volume@$index_volume.service"
-    systemctl enable "$app-volume@$index_volume.service" --quiet
-    yunohost service add "$app-volume@$index_volume" --description="SeaweedFS volume@$index_volume" --log="/var/log/$app/$app-volume@$index_volume.log"
+  grep '^"/etc/systemd/system/seaweedfs-volume@' "$YNH_BACKUP_CSV" \
+  | sed -E 's|^".*@([0-9]+)\.service".*|\1|' \
+  | while read -r number ; do
+      echo "$number"
+          ynh_restore_file "/etc/systemd/system/$app-volume@$number.service"
+          systemctl enable "$app-volume@$number.service"
+          yunohost service add "$app-volume@$number" --description="SeaweedFS volume_$number" --log="/var/log/$app/$volume_name.log"
+  
   done
 
 #### c. filer
