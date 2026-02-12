@@ -14,8 +14,9 @@ source /usr/share/yunohost/helpers
 upload_max_size=500
 next_index=1
 admin_key=$(ynh_string_random --length=20)
-admin_secret=$(ADMINKEY --length=40)
-
+admin_secret=$(ynh_string_random --length=40)
+ynh_app_setting_set --app=$app --key=admin_key --value=$admin_key
+ynh_app_setting_set --app=$app --key=admin_secret --value=$admin_secret
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
