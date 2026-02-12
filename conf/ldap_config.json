@@ -1,0 +1,37 @@
+{
+  "providers": [
+    {
+      "name": "ldap",
+      "type": "ldap",
+      "enabled": true,
+      "config": {
+        "url": "ldap://127.0.0.1:389",
+        "userBaseDN": "dc=yunohost,dc=org"",
+        "userFilter": "(&(objectclass=posixAccount)(permission=cn=seaweedfs.main,ou=permission,dc=yunohost,dc=org))",
+        "groupBaseDN": "ou=groups,dc=yunohost,dc=org",
+        "groupFilter": "(memberUid=${username})"
+      }
+    }
+  ],
+  "policies": [
+    {
+      "name": "LDAPUserPolicy",
+      "document": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": ["s3:GetObject", "s3:PutObject", "s3:ListBucket"],
+            "Resource": "arn:aws:s3:::users/${ldap:username}/*"
+          }
+        ]
+      }
+    }
+  ],
+  "roles": [
+    {
+      "roleName": "LDAPUserRole",
+      "attachedPolicies": ["LDAPUserPolicy"]
+    }
+  ]
+}
