@@ -6,7 +6,7 @@
       "enabled": true,
       "config": {
         "url": "ldap://127.0.0.1:389",
-        "userBaseDN": "dc=yunohost,dc=org"",
+        "userBaseDN": "dc=yunohost,dc=org",
         "userFilter": "(&(objectclass=posixAccount)(permission=cn=seaweedfs.main,ou=permission,dc=yunohost,dc=org))",
         "groupBaseDN": "ou=groups,dc=yunohost,dc=org",
         "groupFilter": "(memberUid=${username})"
