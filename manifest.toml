@@ -7,7 +7,7 @@ description.fr = "Système de stockage polyvalent et efficace"
 
 version = "4.12~ynh1"
 
-maintainers = [otm3GHG]
+maintainers = ["otm33GH"]
 
 [upstream]
 license = "Apache-2.0"
