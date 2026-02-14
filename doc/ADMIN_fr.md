@@ -3,3 +3,7 @@ L'adresse de l'API est <https://__DOMAIN____PATH__>.
 
 Le répertoire de données du premier pod volume est situé dans `/home/yunohost.app/seaweedfs/datadir`.  
 D'autres répertoires peuvent être ajoutés via le panneau de configuration.  
+
+:key: Un utilisateur `admin` est créé avec les clés suivantes  :  
+AWS_ACCESS_KEY_ID=__ADMIN_KEY__  
+AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__
