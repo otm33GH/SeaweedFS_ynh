@@ -5,9 +5,9 @@ name = "SeaweedFS"
 description.en = "Versatile and efficient storage system"
 description.fr = "Système de stockage polyvalent et efficace"
 
-version = "4.09~ynh1"
+version = "4.12~ynh1"
 
-maintainers = [ ]
+maintainers = [otm3GHG]
 
 [upstream]
 license = "Apache-2.0"
@@ -41,8 +41,8 @@ ram.runtime = "200M"
 
     [resources.sources.main]
     in_subdir = false
-    amd64.url = "https://github.com/seaweedfs/seaweedfs/releases/download/4.09/linux_amd64.tar.gz"
-    amd64.sha256 = "ffa77c59375be2a51253c70f2f145a1d9d303404d29c392406993bce65bb3c17"
+    amd64.url = "https://github.com/seaweedfs/seaweedfs/releases/download/4.12/linux_amd64.tar.gz"
+    amd64.sha256 = "64ec9f243977adda9b82cb288db47552aa2cef06b3a4f3a794eca69751a9ca13"
     arm64.url = "https://github.com/seaweedfs/seaweedfs/releases/download/4.09/linux_arm64.tar.gz"
     arm64.sha256 = "37af21257f2c2b86d6c875d246e37ce5ea33a7bdaa7aaf47e19642e7e4d05157"
 
