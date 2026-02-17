@@ -81,7 +81,10 @@ ynh_script_progression "Restoring $app's services..."
 
   pushd "$install_dir"
   sleep 5
-  mv worker.id worker@${next_index}.id
+# add check
+  if [ -f worker.id ]; then
+      mv worker.id "worker@${next_index}.id"
+  fi
   popd
 
 #### logs
