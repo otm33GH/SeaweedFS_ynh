@@ -40,10 +40,10 @@ ynh_script_progression "Restoring $app's services..."
       volume_name=$(basename "$volume")
       echo "$volume_name"
       serv="${volume_name%.service}"
-      ynh_restore "/etc/systemd/system/$svc_name"
-      systemctl enable "$svc_name"
-      yunohost service add  "$serv" --description="SeaweedFS $serv" --log="/var/log/$app/$svc_name.log"
-      ynh_systemctl --service="$svc_name" --action="start"
+      ynh_restore "/etc/systemd/system/$serv"
+      systemctl enable "$serv"
+      yunohost service add  "$serv" --description="SeaweedFS $serv" --log="/var/log/$app/$serv.log"
+      ynh_systemctl --service="$serv" --action="start"
   done
 
 #### c. filer
@@ -88,8 +88,7 @@ ynh_script_progression "Restoring $app's services..."
 
 mkdir -p "/var/log/"$app""
 ynh_restore "/etc/logrotate.d/$app"
-touch /var/log/$app/$app.log
-chown -R $app:$app /var/log/$app/
+
 
 #=================================================
 # RELOAD NGINX AND THE APP SERVICES
