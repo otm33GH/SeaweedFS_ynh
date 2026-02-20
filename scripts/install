@@ -28,6 +28,11 @@ ynh_setup_source --dest_dir="$install_dir"
 # SYSTEM CONFIGURATION
 #=================================================
 
+ynh_exec_as_app ./weed shell <<INNER
+    s3.configure -user=$admin -access_key=$admin_key -secret_key=$admin_secret  -apply
+INNER
+EOF
+
 ynh_config_add --template="config.json" --destination="$install_dir/config.json"
 ynh_config_add --template="ldap_config.json" --destination="$install_dir/ldap_config.json"
 
