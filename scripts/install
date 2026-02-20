@@ -79,9 +79,8 @@ sleep 10
 
 pushd "$install_dir"
 	mv worker.id "worker@${next_index}.id"
-ynh_exec_as_app ./weed shell <<INNER
+ynh_exec_as_app ./weed shell <<EOF
     s3.configure -user=$admin -access_key=$admin_key -secret_key=$admin_secret  -apply
-INNER
 EOF
 popd
 
