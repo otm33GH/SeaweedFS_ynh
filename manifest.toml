@@ -65,9 +65,6 @@ ram.runtime = "200M"
 
     [resources.permissions]
     main.url = "/"
-    main.allowed = "admins"
-    admin.url = "/admin"
-    admin.allowed = "admins"
     admin.auth_header = false
     s3.url = "/s3"
     s3.allowed = ["all_users", "visitors"]
