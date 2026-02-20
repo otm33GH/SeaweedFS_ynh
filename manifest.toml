@@ -36,7 +36,15 @@ ram.runtime = "200M"
     [install.init_main_permission]
     type = "group"
     default = "visitors"
-   
+
+    [install.admin]
+    type = "user"
+    
+    [install.admin_pw]
+    ask.en = "Please chose a password for the admin user."
+    ask.fr = "Choisissez un mot de passe pour l'administrateur."
+    type = "password"
+       
 [resources]
 
     [resources.sources.main]
