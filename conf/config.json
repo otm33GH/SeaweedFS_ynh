@@ -7,7 +7,7 @@
       ]
     },
     {
-      "name": "admin",
+      "name": "__ADMIN__",
       "credentials": [
         {
           "accessKey": "__ADMIN_KEY__",
