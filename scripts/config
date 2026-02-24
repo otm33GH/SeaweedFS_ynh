@@ -64,6 +64,7 @@ ynh_systemctl --service="$app-volume@${next_index}" --action="start"
 run__delete_volume() {
     test -n "${volume_id:-}" || return 0
     ynh_print_info "Removing volume ${volume_id}"
+    volume="${app}-volume@${volume_id}"
     yunohost service stop "$volume"
     yunohost service remove "$volume"
     ynh_safe_rm /etc/systemd/system/$volume.service
