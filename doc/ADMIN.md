@@ -10,4 +10,4 @@ Additional data directories can be added via config panel.
 Buckets can be created with `path_style` and `virtual_host`.  
 With `virtual_host`:  
 * add a domain named `<bucket_name>.__DOMAIN__`
-* Install the [Redirect App](https://apps.yunohost.org/app/redirect) (`redirect_ynh`) at the root of this domain and make it point to http:/__PORT_API__
+* Install the [Redirect App](https://apps.yunohost.org/app/redirect) (`redirect_ynh`) at the root of this domain and make it point to `http://127.0.0.1:__PORT_API__
