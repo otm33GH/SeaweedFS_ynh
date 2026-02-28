@@ -28,8 +28,8 @@ With `virtual_host`:
 #### Backrest
 #### Nextcloud
 Admin settings > Add External storage > S3 Storage > Key access  
-* bucket name
-* endpoint URL : https://__DOMAIN__
+* choose a bucket name
+* set as endpoint URL : https://__DOMAIN__
 * tick `Active pathstyle`
 * Key id : `__ADMIN_KEY__`
 * Secret key: `__ADMIN_SECRET__`
