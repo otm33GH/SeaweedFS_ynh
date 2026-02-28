@@ -17,4 +17,4 @@ Additional data directories can be added by creating additional volume servers v
 Buckets can be created using either `path_style` or `virtual_host` access.
 With `virtual_host`:  
 * add a domain named `<bucket_name>.__DOMAIN__`
-* Install the [Redirect App](https://apps.yunohost.org/app/redirect) (`redirect_ynh`) at the root of this domain and configure it in reverse_proxy` mode to point to `http://127.0.0.1:__PORT_API__ `
+* Install the [Redirect App](https://apps.yunohost.org/app/redirect) (`redirect_ynh`) at the root of this domain and configure it in `reverse_proxy` mode to point to `http://127.0.0.1:__PORT_API__ `
