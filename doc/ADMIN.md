@@ -7,6 +7,7 @@ Additional data directories can be added via config panel.
 `AWS_ACCESS_KEY_ID=__ADMIN_KEY__`   
 `AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__`  
 
+**Bucket creation**  
 Buckets can be created with `path_style` and `virtual_host`.  
 With `virtual_host`:  
 * add a domain named `<bucket_name>.__DOMAIN__`
