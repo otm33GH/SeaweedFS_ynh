@@ -5,5 +5,5 @@ Le répertoire de données du premier pod volume est situé dans `/home/yunohost
 D'autres répertoires peuvent être ajoutés via le panneau de configuration.  
 
 :key: Un utilisateur admin __ADMIN__ est créé avec les clés suivantes  :  
-AWS_ACCESS_KEY_ID=__ADMIN_KEY__  
-AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__
+`AWS_ACCESS_KEY_ID=__ADMIN_KEY__`   
+`AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__` 
