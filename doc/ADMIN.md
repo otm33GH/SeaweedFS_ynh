@@ -18,3 +18,16 @@ Buckets can be created using either `path_style` or `virtual_host` access.
 With `virtual_host`:  
 * add a domain named `<bucket_name>.__DOMAIN__`
 * Install the [Redirect App](https://apps.yunohost.org/app/redirect) (`redirect_ynh`) at the root of this domain and configure it in `reverse_proxy` mode to point to `http://127.0.0.1:__PORT_API__ `
+
+### Examples of use
+#### Restic
+#### Backrest
+#### Nextcloud
+Admin settings > Add External storage > S3 Storage > Key access  
+* bucket name
+* endpoint URL : https://__DOMAIN__
+* tick `Active pathstyle`
+* Key id : `__ADMIN_KEY__`
+* Secret key: `__ADMIN_SECRET__`
+#### Peertube
+#### LaSuite 
