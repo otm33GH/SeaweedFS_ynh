@@ -1,13 +1,20 @@
 The admin URL is <https://__DOMAIN____PATH__admin>. 
 
-The data directory for the default volume server is located at `/home/yunohost.app/seaweedfs/datadir`.  
-Additional data directories can be added via config panel.
+### Credentials
 
 :key: Admin credentials for __ADMIN__ :  
 `AWS_ACCESS_KEY_ID=__ADMIN_KEY__`   
 `AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__`  
 
-**Bucket creation**  
+Other credentials can be created via the seaweed admin panel.  
+
+
+### Volume servers
+
+The data directory for the default volume server is located at `/home/yunohost.app/seaweedfs/datadir`.  
+Additional data directories can be added adding volume servers via config panel.
+
+### Bucket creation
 Buckets can be created with `path_style` and `virtual_host`.  
 With `virtual_host`:  
 * add a domain named `<bucket_name>.__DOMAIN__`
