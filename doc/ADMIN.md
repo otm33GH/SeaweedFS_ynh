@@ -21,6 +21,10 @@ With `virtual_host`:
 
 ### Examples of use
 #### Restic
+* Install restic app with `s3:https://__DOMAIN__/<bucket_name>` as repository.
+* Open restic shell via CLI with `yunohost app shell restic`
+* Initialize repository : `./restic -r s3:https://__DOMAIN__/<bucket_name> init` then exit.
+* Start backup via webadmin or CLI.
 #### Backrest
 #### Nextcloud
 Admin settings > Add External storage > S3 Storage > Key access  
