@@ -17,9 +17,9 @@ D'autres répertoires peuvent être ajoutés via le panneau de configuration en 
 
 ###  Création des buckets  
 Les buckets peuvent être créés en `path_style` ou `virtual_host`.  
-En `virtual_host`:  
-* il faut ajouter un domaine nommé `<bucket_name>.__DOMAIN__`
-* il faut ensuite installer l'app [Redirect App](https://apps.yunohost.org/app/redirect) (`redirect_ynh`) à la racine de ce domaine et la faire pointer en mode `reverse_proxy` sur `http://127.0.0.1:__PORT_API__ `
+> En `virtual_host`:  
+> * il faut ajouter un domaine nommé `<bucket_name>.__DOMAIN__`
+> * il faut ensuite installer l'app [Redirect App](https://apps.yunohost.org/app/redirect) (`redirect_ynh`) à la racine de ce domaine et la faire pointer en mode > `reverse_proxy` sur `http://127.0.0.1:__PORT_API__ `
 ___
 ### Exemples d'utilisation
 #### Restic
@@ -36,8 +36,56 @@ Paramètres d'administration > Stockage externe > Stockage S3 > Clé d'accès.
 * Key id : `__ADMIN_KEY__`
 * Secret key: `__ADMIN_SECRET__`
 #### Peertube
-* éditer `var/www/peertube/config/production.yaml:
+* Éditer `var/www/peertube/config/production.yaml` :
 ```
 object_storage:
   enabled: true
+  endpoint: '__DOMAIN__'
+  credentials:
+    # You can also use AWS_ACCESS_KEY_ID env variable
+    access_key_id: '`__ADMIN_KEY__`'
+    # You can also use AWS_SECRET_ACCESS_KEY env variable
+    secret_access_key: '`__ADMIN_SECRET__`'
+
+  streaming_playlists:
+    # Bucket name created on your object storage provider
+    # PeerTube will access it via {bucket_name}.example.com
+    bucket_name: 'peertube'
+
+    # Allows setting all buckets to the same value but with a different prefix
+    prefix: 'streaming-playlists/'
+
+    # Base url for object URL generation, scheme and host will be replaced by this URL
+    # Useful when you want to use a CDN/external proxy
+    base_url: '' # Example: 'https://mirror.example.com'
+
+    # PeerTube makes many small requests to the object storage provider to upload/delete/update live chunks
+    # which can be a problem depending on your object storage provider
+    # You can also choose to disable this feature to reduce live streams latency
+    # Live stream replays are not affected by this setting, so they are uploaded in object storage as regular VOD videos
+    store_live_streams: false
+
+  web_videos:
+    bucket_name: 'peertube'
+    prefix: 'web-videos/'
+    base_url: ''
+
+  user_exports:
+    bucket_name: 'peertube'
+    prefix: 'user-exports/'
+    base_url: ''
+
+  # Same settings but for original video files
+  original_video_files:
+    bucket_name: 'peertube'
+    prefix: 'original-video-files/'
+    base_url: ''
+
+  # Video captions
+  captions:
+    bucket_name: 'peertube'
+    prefix: 'captions/'
+    base_url: ''
+
 ``
+* systemctl restart peertube
