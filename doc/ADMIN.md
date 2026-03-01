@@ -161,3 +161,4 @@ object_storage:
     base_url: ''
 
 ```
+* systemctl restart peertube
