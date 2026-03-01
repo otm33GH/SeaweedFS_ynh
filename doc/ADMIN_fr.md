@@ -23,7 +23,7 @@ Les buckets peuvent être créés en `path_style` ou `virtual_host`.
 > * il faut ajouter un domaine nommé `<bucket_name>.__DOMAIN__`
 > * il faut ensuite installer l'app [Redirect App](https://apps.yunohost.org/app/redirect) (`redirect_ynh`) à la racine de ce domaine et la faire pointer en mode > `reverse_proxy` sur `http://127.0.0.1:__PORT_API__ `
 ___
-### Exemples d'utilisation
+### Exemples d'utilisation (Restic, Backrest, Nextcloud, Peertube)
 #### Restic
 * Installer l'app restic et choisir comme dépôt pour les sauvegardes `s3:https://__DOMAIN__/<bucket_name>`.
 * Dans la partie **configuration avancée**, ajouter les identifiants :
@@ -39,6 +39,12 @@ AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__
 > * initialiser le dépôt : `./restic -r s3:https://__DOMAIN__/<bucket_name> init` puis sortir du shell (`exit).  
 * démarrer la sauvegarde via la webadmin ou en ligne de commande.
 #### Backrest
+* URI du dépôt : s3:https://__DOMAIN__/<bucket_name>
+* Variables d'environnement:
+```
+AWS_ACCESS_KEY_ID=__ADMIN_KEY__  
+AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__
+```
 #### Nextcloud
 Paramètres d'administration > Stockage externe > Stockage S3 > Clé d'accès.  
 * nom du bucket
