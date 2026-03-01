@@ -26,7 +26,7 @@ ___
 ### Exemples d'utilisation
 #### Restic
 * Installer l'app restic et choisir comme dépôt pour les sauvegardes `s3:https://__DOMAIN__/<bucket_name>`.
-* Dans la partie 'configuration avancée', ajouter les identifiants :
+* Dans la partie **configuration avancée**, ajouter les identifiants :
 ```
 AWS_ACCESS_KEY_ID=__ADMIN_KEY__
 AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__
