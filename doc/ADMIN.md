@@ -3,8 +3,10 @@ The admin URL is <https://__DOMAIN____PATH__admin>.
 ### Credentials
 
 :key: Admin credentials for __ADMIN__ :  
-`AWS_ACCESS_KEY_ID=__ADMIN_KEY__`   
-`AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__`  
+```
+AWS_ACCESS_KEY_ID=__ADMIN_KEY__  
+AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__
+```
 
 Additional credentials can be created via the SeaweedFS admin panel.
 
@@ -19,7 +21,7 @@ With `virtual_host`:
 * add a domain named `<bucket_name>.__DOMAIN__`
 * Install the [Redirect App](https://apps.yunohost.org/app/redirect) (`redirect_ynh`) at the root of this domain and configure it in `reverse_proxy` mode to point to `http://127.0.0.1:__PORT_API__ `
 ___
-### Examples of use
+### Examples of use (Restic, Backrest, Nextcloud, Peertube)
 #### Restic
 * Install restic app with `s3:https://__DOMAIN__/<bucket_name>` as repository.
 * In **Advanced configuration**, add the following credentials
@@ -33,7 +35,13 @@ AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__
 > * `export AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__`
 > * Initialize repository : `./restic -r s3:https://__DOMAIN__/<bucket_name> init` then exit.
 * Start backup via webadmin or CLI.
-#### Backrest
+#### Backrest  
+* Repo URI : s3:https://__DOMAIN__/<bucket_name>
+* Env vars:
+```
+AWS_ACCESS_KEY_ID=__ADMIN_KEY__  
+AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__
+```
 #### Nextcloud
 Admin settings > Add External storage > S3 Storage > Key access  
 * choose a bucket name
