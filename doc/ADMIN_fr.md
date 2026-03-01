@@ -28,7 +28,7 @@ ___
 ```
 AWS_ACCESS_KEY_ID=`__ADMIN_KEY__`
 AWS_SECRET_ACCESS_KEY=`__ADMIN_SECRET__`
-``
+``` 
   
 >  Alternative en ligne de commande:
 > * ouvrir le shell restic:  `yunohost app shell restic`
