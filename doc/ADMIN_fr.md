@@ -36,7 +36,7 @@ AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__
 > * ouvrir le shell restic:  `yunohost app shell restic`
 > * `export AWS_ACCESS_KEY_ID=__ADMIN_KEY__`
 > * `export AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__`
-> * initialiser le dépôt : `./restic -r s3:https://__DOMAIN__/<bucket_name> init` then exit.  
+> * initialiser le dépôt : `./restic -r s3:https://__DOMAIN__/<bucket_name> init` puis sortir du shell (`exit).  
 * démarrer la sauvegarde via la webadmin ou en ligne de commande.
 #### Backrest
 #### Nextcloud
