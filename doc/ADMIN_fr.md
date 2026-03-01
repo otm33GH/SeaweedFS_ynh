@@ -87,5 +87,5 @@ object_storage:
     prefix: 'captions/'
     base_url: ''
 
-``
+```
 * systemctl restart peertube
