@@ -6,8 +6,10 @@ L'adresse de l'API est <https://__DOMAIN____PATH__>.
 ### Identifiants
 
 :key: Un utilisateur admin __ADMIN__ est créé avec les clés suivantes  :  
-`AWS_ACCESS_KEY_ID=__ADMIN_KEY__`   
-`AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__`  
+```
+AWS_ACCESS_KEY_ID=__ADMIN_KEY__  
+AWS_SECRET_ACCESS_KEY=__ADMIN_SECRET__
+``` 
 
 D'autres utilisateurs peuvent être ajoutés via le panel admin de seaweedfs.
 
