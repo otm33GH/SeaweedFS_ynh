@@ -24,9 +24,11 @@ ___
 ### Exemples d'utilisation
 #### Restic
 * Installer l'app restic et choisir comme dépôt pour les sauvegardes `s3:https://__DOMAIN__/<bucket_name>`.
-* En ligne de commande, ouvrir le shell restic:  `yunohost app shell restic`
-* Initialiser le dépôt : `./restic -r s3:https://__DOMAIN__/<bucket_name> init` then exit.
-* Démarrer la sauvegarde via la webadmin ou en ligne de commande.
+  
+>  Alternative en ligne de commande:
+> * ouvrir le shell restic:  `yunohost app shell restic`
+> * initialiser le dépôt : `./restic -r s3:https://__DOMAIN__/<bucket_name> init` then exit.  
+* démarrer la sauvegarde via la webadmin ou en ligne de commande.
 #### Backrest
 #### Nextcloud
 Paramètres d'administration > Stockage externe > Stockage S3 > Clé d'accès.  
@@ -37,6 +39,7 @@ Paramètres d'administration > Stockage externe > Stockage S3 > Clé d'accès.
 * Secret key: `__ADMIN_SECRET__`
 #### Peertube
 * Éditer `var/www/peertube/config/production.yaml` :
+  - version path_style
 ```
 object_storage:
   enabled: true
@@ -50,10 +53,10 @@ object_storage:
   streaming_playlists:
     # Bucket name created on your object storage provider
     # PeerTube will access it via {bucket_name}.example.com
-    bucket_name: 'peertube'
+    bucket_name: '<bucket_name>'
 
     # Allows setting all buckets to the same value but with a different prefix
-    prefix: 'streaming-playlists/'
+    prefix: '<bucket_name>/streaming-playlists/'
 
     # Base url for object URL generation, scheme and host will be replaced by this URL
     # Useful when you want to use a CDN/external proxy
@@ -66,25 +69,25 @@ object_storage:
     store_live_streams: false
 
   web_videos:
-    bucket_name: 'peertube'
-    prefix: 'web-videos/'
+    bucket_name: '<bucket_name>'
+    prefix: '<bucket_name>/web-videos/'
     base_url: ''
 
   user_exports:
-    bucket_name: 'peertube'
-    prefix: 'user-exports/'
+    bucket_name: '<bucket_name>'
+    prefix: '<bucket_name>/user-exports/'
     base_url: ''
 
   # Same settings but for original video files
   original_video_files:
-    bucket_name: 'peertube'
-    prefix: 'original-video-files/'
+    bucket_name: '<bucket_name>'
+    prefix: '<bucket_name>/original-video-files/'
     base_url: ''
 
   # Video captions
   captions:
-    bucket_name: 'peertube'
-    prefix: 'captions/'
+    bucket_name: '<bucket_name>'
+    prefix: '<bucket_name>/captions/'
     base_url: ''
 
 ```
