@@ -61,8 +61,8 @@ ram.runtime = "200M"
     in_subdir = false
     amd64.url = "https://github.com/seaweedfs/seaweedfs/releases/download/4.13/linux_amd64.tar.gz"
     amd64.sha256 = "7c1f6be377aa0cc42de53feccff925a59a337f6279c45c9e40cac1034480685a"
-    arm64.url = "https://github.com/seaweedfs/seaweedfs/releases/download/4.09/linux_arm64.tar.gz"
-    arm64.sha256 = "37af21257f2c2b86d6c875d246e37ce5ea33a7bdaa7aaf47e19642e7e4d05157"
+    arm64.url = "https://github.com/seaweedfs/seaweedfs/releases/download/4.13/linux_arm64.tar.gz"
+    arm64.sha256 = "f20dbbe67e77eb784fd3debe19d6d89b8299e5dbe63d5409fdcb6cc71b8c30f7"
 
     autoupdate.strategy = "latest_github_tag"
    
